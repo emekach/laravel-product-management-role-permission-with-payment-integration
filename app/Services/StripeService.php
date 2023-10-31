@@ -52,7 +52,10 @@ class StripeService
         ]);
 
 
+
         $intent = $this->createIntent($request->value, $request->currency, $request->payment_method);
+
+        return $intent;
 
         session()->put('paymentIntentId', $intent->id);
         // Get the authenticated user

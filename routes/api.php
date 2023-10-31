@@ -6,6 +6,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\PayController;
 use App\Http\Controllers\API\PaymentController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,9 @@ use App\Http\Controllers\API\ProductController;
 |
 */
 
+
+Route::post('register', [AuthController::class, 'register']);
+
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('product', [ProductController::class, 'index']);
@@ -28,10 +32,12 @@ Route::get('product/{id}', [ProductController::class, 'show']);
 
 Route::post('pays', [PaymentController::class, 'makePayment'])->middleware(['auth:sanctum']);
 
-Route::post('register', [AuthController::class, 'register']);
+Route::get('users', [UserController::class, 'viewUser'])->middleware(['auth:sanctum', 'role:admin']);
+Route::get('cancel/user/{id}', [UserController::class, 'cancelUserAccess'])->middleware(['auth:sanctum', 'role:admin']);
+Route::get('activate/user/{id}', [UserController::class, 'activateUserAccess'])->middleware(['auth:sanctum', 'role:admin']);
+
 
 Route::post('logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum']);
-
 
 
 

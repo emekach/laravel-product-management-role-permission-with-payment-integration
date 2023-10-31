@@ -33,6 +33,8 @@ class PaymentController extends Controller
 
         $paymentPlatform = resolve(StripeService::class);
 
+       
+
         return $paymentPlatform->handlePayment($request);
 
 

@@ -1,67 +1,140 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+```markdown
+# E-Commerce Platform
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+An E-Commerce platform built with Laravel, Stripe, React, Laravel Breeze, and Laravel Sanctum, featuring role-based access control and email notifications.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Table of Contents
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Installation](#installation)
+4. [Usage](#usage)
+5. [Role-Based Access Control](#role-based-access-control)
+6. [Stripe Integration](#stripe-integration)
+7. [React Front-End](#react-front-end)
+8. [Key Actions and Events](#key-actions-and-events)
+9. [Testing](#testing)
+10. [Security Considerations](#security-considerations)
 
-## Learning Laravel
+## Overview
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+This E-Commerce platform showcases a wide range of products, each categorized as either B2B (Business-to-Business) or B2C (Business-to-Consumer). Users can explore and purchase products with seamless authentication, role assignment, and payment processing. The platform utilizes Laravel Breeze for user authentication and Laravel Sanctum for API protection.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Features
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Display B2B and B2C products with detailed information.
+- User registration and authentication using Laravel Breeze and Sanctum.
+- Role-based access control with three distinct roles: Admin, B2C Customer, and B2B Customer.
+- Role assignment based on the type of product purchased (B2B or B2C).
+- Integrated Stripe payment gateway for secure transactions.
+- Automated email notifications to users upon successful purchases.
+- Super admin can view all users and revoke access.
 
-## Laravel Sponsors
+## Installation
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+To run this project locally, follow these steps:
 
-### Premium Partners
+1. Clone the repository:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+   ```bash
+   git clone https://github.com/your/repository.git
+   cd your-repository
+   ```
 
-## Contributing
+2. Install project dependencies:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+   ```bash
+   composer install
+   npm install
+   ```
 
-## Code of Conduct
+3. Create a `.env` file and set your environment variables, including Stripe API keys and database configurations.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. Generate an application key:
 
-## Security Vulnerabilities
+   ```bash
+   php artisan key:generate
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5. Migrate the database:
 
-## License
+   ```bash
+   php artisan migrate
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# laravel-product-management-role-permission-with-payment-integration
+6. Seed the database with sample products and roles:
+
+   ```bash
+   php artisan db:seed
+   ```
+
+7. Start the development server:
+
+   ```bash
+   php artisan serve
+   ```
+
+The project should now be accessible at `http://localhost:8000`.
+
+## Usage
+
+### Product Purchase
+
+1. Browse products on the site and select a product for purchase.
+2. If not logged in, you'll be redirected to the login or registration page.
+3. After a successful purchase, a role is automatically assigned based on the product type (B2B or B2C).
+4. An email notification is sent to the user with purchase confirmation.
+
+## Role-Based Access Control
+
+This project leverages Laravel Spatie for role management. Three roles are implemented:
+
+- Admin
+- B2C Customer
+- B2B Customer
+
+You can assign, modify, or revoke roles for users using Laravel Spatie's role management features.
+
+## Stripe Integration
+
+The Stripe payment gateway is integrated using GuzzleHTTP to ensure secure and seamless transactions. Configure your Stripe API keys in the environment variables for successful payment processing.
+
+## React Front-End
+
+The front-end of this project is built using React, following best practices. Emphasis is placed on pages updating without refreshing and efficient data retrieval from the backend.
+
+### Key React Pages
+
+- **Purchase Page**: Allows users to view and select products for purchase through Stripe. Accepts test credit card and registration details.
+
+- **Login Page**: A secure login page is implemented using Laravel Breeze for user authentication.
+
+- **Dashboard Page**: Accessible after login, this page dynamically displays the last 4 digits of the purchased card number under the label "B2C Purchase Details" for B2C customers. For B2B customers, the same information is shown.
+
+- **Cancellation**: If applicable, users can cancel their purchase, and a cancel button is available on the dashboard page.
+
+## Key Actions and Events
+
+### Purchase
+
+An email notification is sent to the customer upon successful purchase. The email includes the customer's name but omits other details.
+
+### Payment Failure
+
+Consider potential payment revocation scenarios and handle them gracefully.
+
+### Access Cancellation
+
+Notify the customer via email if their access is canceled for any reason.
+
+## Testing
+
+Comprehensive testing is implemented to ensure code reliability. Unit tests and integration tests are performed, using specific testing tools and libraries as required.
+
+## Security Considerations
+
+This project focuses on security best practices, including robust user input validation, strict authorization controls, and data encryption. Sensitive data such as credit card information is handled securely.
+```
+

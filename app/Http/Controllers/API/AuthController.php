@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
 
+
     public function register(Request $request)
     {
 
@@ -39,10 +40,6 @@ class AuthController extends Controller
 
     public function logout()
     {
-
-
-
-
         Auth::user()->tokens->each(function ($token, $key) {
             $token->delete();
         });
@@ -60,7 +57,7 @@ class AuthController extends Controller
             'password' => 'required|string'
         ]);
 
-        $user = User::where('email', $data['email'])->first();
+        $user = User::where('email', $data['email'])->where('status', 1)->first();
 
         if (!$user || !Hash::check($data['password'], $user->password)) {
             return response()->json(['message' => 'Invalid Credentials'], 401);
